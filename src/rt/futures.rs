@@ -30,6 +30,11 @@ impl<T> FuturesIo<T> {
     pub fn new(io: T) -> Self {
         io.into()
     }
+
+    /// Get the inner type.
+    pub fn into_inner(self) -> T {
+        self.inner
+    }
 }
 
 impl<T: ?Sized> FuturesIo<T> {

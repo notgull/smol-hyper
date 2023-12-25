@@ -8,4 +8,4 @@ pub use futures::FuturesIo;
 #[cfg(feature = "smol")]
 mod smol;
 #[cfg(feature = "smol")]
-pub use smol::SmolTimer;
+pub use smol::{SmolExecutor, SmolTimer};
