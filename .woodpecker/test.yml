@@ -16,3 +16,12 @@ steps:
       - if [ ${RUST_VERSION} = "nightly" ]; then cargo check -Z features=dev_dep; fi
       - cargo test
       - cargo test --no-default-features --tests
+    environment:
+      CARGO_INCREMENTAL: "0"
+      CARGO_NET_GIT_FETCH_WITH_CLI: "true"
+      CARGO_NET_RETRY: "10"
+      CARGO_TERM_COLOR: always
+      RUST_BACKTRACE: "1"
+      RUSTFLAGS: "-D warnings"
+      RUSTDOCFLAGS: "-D warnings"
+      RUSTUP_MAX_RETRIES: "10"
