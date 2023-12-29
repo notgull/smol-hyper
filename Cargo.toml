@@ -1,6 +1,6 @@
 [package]
 name = "smol-hyper"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["John Nunley <dev@notgull.net>"]
 description = "Integrations between smol and hyper"
