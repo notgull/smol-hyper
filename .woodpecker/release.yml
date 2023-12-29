@@ -1,0 +1,14 @@
+when:
+  - event: tag
+    ref: refs/tags/v*
+
+steps:
+  create_release:
+    image: alpine:latest
+    secrets: [ codeberg_config, codeberg_ssh_key ]
+    commands:
+      - apk --no-cache update -q 
+      - apk --no-cache add tea
+      - mkdir -p /tmp/.ssh && echo "$CODEBERG_SSH_KEY" > /tmp/.ssh/id_rsa
+      - mkdir -p $HOME/.config/tea && echo "$CODEBERG_CONFIG" > $HOME/.config/tea/config.yml
+      - tea release create --tag "$(git describe --tags)" --title "$(git describe --tags)" -n 'TODO parse changelog'
