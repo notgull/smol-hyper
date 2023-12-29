@@ -2,6 +2,16 @@
 name = "smol-hyper"
 version = "0.1.0"
 edition = "2021"
+authors = ["John Nunley <dev@notgull.net>"]
+description = "Integrations between smol and hyper"
+license = "MIT OR Apache-2.0"
+rust-version = "1.63"
+repository = "https://codeberg.org/notgull/smol-hyper"
+homepage = "https://codeberg.org/notgull/smol-hyper"
+documentation = "https://docs.rs/smol-hyper"
+keywords = ["asynchronous", "http"]
+categories = ["asynchronous", "concurrency"]
+exclude = ["/.*"]
 
 [dependencies]
 async-executor = { version = "1.8.0", optional = true }
