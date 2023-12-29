@@ -72,9 +72,17 @@ where
 }
 
 /// Use the timer from [`async-io`].
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct SmolTimer {
     _private: (),
+}
+
+impl SmolTimer {
+    /// Create a new `SmolTimer`.
+    #[inline]
+    pub fn new() -> Self {
+        Self::default()
+    }
 }
 
 impl hyper::rt::Timer for SmolTimer {
