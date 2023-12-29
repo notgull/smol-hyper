@@ -8,7 +8,7 @@ steps:
     secrets: [ codeberg_config, codeberg_ssh_key ]
     commands:
       - apk --no-cache update -q 
-      - apk --no-cache add tea
+      - apk --no-cache add git tea
       - mkdir -p /tmp/.ssh && echo "$CODEBERG_SSH_KEY" > /tmp/.ssh/id_rsa
       - mkdir -p $HOME/.config/tea && echo "$CODEBERG_CONFIG" > $HOME/.config/tea/config.yml
       - tea release create --tag "$(git describe --tags)" --title "$(git describe --tags)" -n 'TODO parse changelog'
