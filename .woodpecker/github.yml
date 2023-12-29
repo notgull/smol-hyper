@@ -13,4 +13,4 @@ steps:
       - ssh-keyscan -H -t rsa github.com >> ~/.ssh/known_hosts
       - echo "$GITHUB_SSH_KEY" > "$HOME/.ssh/id_rsa" && chmod 0600 $HOME/.ssh/id_rsa
       - git remote add github_origin git@github.com:notgull/smol-hyper.git
-      - git push github_origin main 
+      - git push github_origin main -u 
