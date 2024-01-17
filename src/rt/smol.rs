@@ -2,7 +2,7 @@
 
 //! Integrations with `hyper::rt` for `smol` types.
 
-use async_executor::Executor;
+use async_executor::{Executor, LocalExecutor};
 use hyper::rt::Sleep;
 
 use std::future::Future;
@@ -71,6 +71,17 @@ where
     }
 }
 
+impl<'a, E: AsRef<LocalExecutor<'a>> + ?Sized, Fut: Future + 'a> hyper::rt::Executor<Fut>
+    for SmolExecutor<E>
+where
+    Fut::Output: 'a,
+{
+    #[inline]
+    fn execute(&self, fut: Fut) {
+        self.get_ref().as_ref().spawn(fut).detach();
+    }
+}
+
 /// Use the timer from [`async-io`].
 #[derive(Debug, Clone, Default)]
 pub struct SmolTimer {
@@ -87,17 +98,17 @@ impl SmolTimer {
 
 impl hyper::rt::Timer for SmolTimer {
     #[inline]
-    fn sleep(&self, duration: Duration) -> Pin<Box<dyn Sleep>> {
+    fn sleep(&self, duration: Duration) -> Pin<Box<dyn Sleep<Output=()>>> {
         Box::pin(SmolSleep(async_io::Timer::after(duration)))
     }
 
     #[inline]
-    fn sleep_until(&self, at: Instant) -> Pin<Box<dyn Sleep>> {
+    fn sleep_until(&self, at: Instant) -> Pin<Box<dyn Sleep<Output=()>>> {
         Box::pin(SmolSleep(async_io::Timer::at(at)))
     }
 
     #[inline]
-    fn reset(&self, sleep: &mut Pin<Box<dyn Sleep>>, new_deadline: Instant) {
+    fn reset(&self, sleep: &mut Pin<Box<dyn Sleep<Output=()>>>, new_deadline: Instant) {
         if let Some(mut sleep) = sleep.as_mut().downcast_mut_pin::<SmolSleep>() {
             sleep.0.set_at(new_deadline);
         } else {
