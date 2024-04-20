@@ -1,0 +1,20 @@
+when:
+- event: cron
+  cron: renovate
+
+steps:
+  renovate:
+    image: renovate/renovate
+    pull: true
+    commands:
+      - renovate $${CI_REPO}
+    environment:
+      RENOVATE_PLATFORM: gitea
+      RENOVATE_ENDPOINT: https://codeberg.org
+      LOG_LEVEL: debug
+      RENOVATE_GIT_AUTHOR: "Dependency Dog <renovate@notgull.net>"
+    secrets:
+      - source: renovate_pat
+        target: renovate_token
+      - source: renovate_github
+        target: github_com_token
