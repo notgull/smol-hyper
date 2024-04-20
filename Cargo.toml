@@ -14,7 +14,7 @@ categories = ["asynchronous", "concurrency"]
 exclude = ["/.*"]
 
 [dependencies]
-async-executor = { version = "1.8.0", optional = true }
+async-executor = { version = "1.11.0", optional = true }
 async-io = { version = "2.2.2", optional = true }
 futures-io = { version = "0.3.30", default-features = false, features = ["std"] }
 hyper = { version = "1.1.0", default-features = false }
