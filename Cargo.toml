@@ -23,3 +23,5 @@ pin-project-lite = "0.2.13"
 [features]
 default = ["smol"]
 smol = ["async-executor", "async-io"]
+async-executor = ["dep:async-executor"]
+async-io = ["dep:async-io"]
